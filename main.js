@@ -1,5 +1,8 @@
-var info={
+// use https://clientjs.org/#overview 
+// var client = new ClientJS();
 
+
+var info={
     timeOpened:new Date(),
     timezone:(new Date()).getTimezoneOffset()/60,
 
@@ -30,12 +33,17 @@ var info={
     sizeAvailH(){return screen.availHeight},
     scrColorDepth(){return screen.colorDepth},
     scrPixelDepth(){return screen.pixelDepth},
- };
+};
 
-var callInfos = function(){
+var fingerprint = {}
+
+var getFingerprint = function()
+{
     Object.values(info).map(value => {
         if(typeof value === 'function'){
-          console.log(value.call())
+            fingerprint[value.name] = value.call()
         }
     })
+    // console.log(fingerprint);
+    return fingerprint
 }
